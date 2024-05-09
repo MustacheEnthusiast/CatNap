@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1nlac8n1717s"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerMove.gd" id="1_0072f"]
+
+[sub_resource type="Curve" id="Curve_qk2kc"]
+_data = [Vector2(0, 0), 0.0, 2.66389, 0, 0, Vector2(0.5, 0.802198), 0.93956, 0.93956, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsxhs"]
+albedo_color = Color(0.241156, 0.241156, 0.241156, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vrm41"]
+material = SubResource("StandardMaterial3D_qsxhs")
+size = Vector3(0.5, 0.5, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxnwx"]
+albedo_color = Color(0.631214, 0.349873, 0.9798, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wbxqo"]
+material = SubResource("StandardMaterial3D_fxnwx")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6tigo"]
+size = Vector3(0.503357, 0.500732, 0.900459)
+
+[node name="Cat" type="CharacterBody3D"]
+script = ExtResource("1_0072f")
+SpeepCurve = SubResource("Curve_qk2kc")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_vrm41")
+
+[node name="Head" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.152739, 0, 0, 0, 0.0959871, 0, 0, 0, 0.216148, 0, 0.153786, -0.433297)
+mesh = SubResource("BoxMesh_wbxqo")
+skeleton = NodePath("../..")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000152588, -0.00134277, -0.0954427)
+shape = SubResource("BoxShape3D_6tigo")
+
+[node name="CameraArm" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.725807, 0.687898, 0, -0.687898, 0.725807, 0, 0, 0)
+spring_length = 1.665
+
+[node name="PlayerCam" type="Camera3D" parent="CameraArm"]
+transform = Transform3D(0.999999, 0.000826521, -0.00123279, -0.00126871, 0.907061, -0.420998, 0.000770255, 0.420999, 0.907061, 0, 0.0310427, 1.72011)
+fov = 80.3364
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UI_Layer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Interact" type="Label" parent="UI_Layer/UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Test
+"
+
+[node name="HoldingArm" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.955701, -0.29434, 0, 0.29434, -0.955701, 0, 0.171834, -0.400544)
+spring_length = 0.365
+
+[node name="Interact" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.149705, -0.478498)

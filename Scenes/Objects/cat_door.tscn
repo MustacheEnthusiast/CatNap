@@ -1,0 +1,144 @@
+[gd_scene load_steps=15 format=3 uid="uid://dqkijnmhc1brj"]
+
+[ext_resource type="Script" path="res://Scripts/CatDoor.gd" id="1_tnjjd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsyqd"]
+albedo_color = Color(0.192157, 0.705882, 0.776471, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wayho"]
+albedo_color = Color(0.192157, 0.705882, 0.776471, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jha5v"]
+size = Vector3(0.49, 0.64, 0.065)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l38k0"]
+size = Vector3(0.49, 0.64, 0.065)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ykqa4"]
+size = Vector3(0.545532, 0.593872, 1.34985)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xxq85"]
+animation = &"CD_Open"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o6x7x"]
+animation = &"CD_Open_2"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_sk1va"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_xxq85")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_o6x7x")
+blend_point_1/pos = -1.0
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ypgwo"]
+graph_offset = Vector2(-351, -97)
+nodes/DoorAnim/node = SubResource("AnimationNodeBlendSpace1D_sk1va")
+nodes/DoorAnim/position = Vector2(-60, 120)
+node_connections = [&"output", 0, &"DoorAnim"]
+
+[sub_resource type="Animation" id="Animation_6hjip"]
+resource_name = "CD_Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.65806, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m5i8v"]
+resource_name = "CD_Open_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.65806, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hb3k4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D/Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.65806, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3b8y8"]
+_data = {
+"CD_Open": SubResource("Animation_6hjip"),
+"CD_Open_2": SubResource("Animation_m5i8v"),
+"RESET": SubResource("Animation_hb3k4")
+}
+
+[node name="CatDoor" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54122, 0, 0)
+script = ExtResource("1_tnjjd")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51185, 1.24646, 0.00679833)
+size = Vector3(1, 2.55176, 0.30957)
+material = SubResource("StandardMaterial3D_jsyqd")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.513712, 0.27661, -0.00960356)
+operation = 2
+size = Vector3(0.50592, 0.619385, 0.4375)
+material = SubResource("StandardMaterial3D_wayho")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.521128, 0.583634, -0.000346661)
+
+[node name="Pivot" type="Marker3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -0.0871529, -0.996195, 0, 0.996195, -0.0871529, 0, 0, 0)
+gizmo_extents = 0.52
+
+[node name="Catdoor" type="Area3D" parent="Node3D/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00741607, -0.305192, -0.00208563)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Pivot/Catdoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00769395, 0)
+mesh = SubResource("BoxMesh_jha5v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Pivot/Catdoor"]
+shape = SubResource("BoxShape3D_l38k0")
+
+[node name="CD_Trigger" type="Area3D" parent="Node3D"]
+
+[node name="CD_TA" type="CollisionShape3D" parent="Node3D/CD_Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00958252, -0.203064, -0.031499)
+shape = SubResource("BoxShape3D_ykqa4")
+
+[node name="Animator" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_ypgwo")
+anim_player = NodePath("AnimationPlayer")
+parameters/DoorAnim/blend_position = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_3b8y8")
+}
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="body_entered" from="Node3D/CD_Trigger" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Node3D/CD_Trigger" to="." method="_on_trigger_body_exited"]
+[connection signal="child_exiting_tree" from="Node3D/CD_Trigger/CD_TA" to="." method="_on_collision_shape_3d_child_exiting_tree"]

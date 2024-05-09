@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=3 uid="uid://co32r1lr7vqgv"]
+
+[ext_resource type="PackedScene" uid="uid://b1nlac8n1717s" path="res://Scenes/Actors/Cat.tscn" id="1_t3m7q"]
+[ext_resource type="PackedScene" uid="uid://bf7x2v0n1b3mb" path="res://Scenes/Testing Props/ball.tscn" id="2_lw4io"]
+[ext_resource type="PackedScene" uid="uid://dqkijnmhc1brj" path="res://Scenes/Objects/cat_door.tscn" id="3_843db"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_et37t"]
+albedo_color = Color(0.756863, 0.419608, 0.12549, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a5daj"]
+
+[sub_resource type="Sky" id="Sky_n4nmg"]
+sky_material = SubResource("ProceduralSkyMaterial_a5daj")
+
+[sub_resource type="Environment" id="Environment_t8wam"]
+background_mode = 2
+background_energy_multiplier = 2.0
+sky = SubResource("Sky_n4nmg")
+
+[node name="Testing Area" type="Node3D"]
+
+[node name="Player" type="Node3D" parent="."]
+transform = Transform3D(0.517775, 0, 0, 0, 0.517775, 0, 0, 0, 0.517775, 0, 0.309873, 0)
+
+[node name="Cat" parent="Player" instance=ExtResource("1_t3m7q")]
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="Test area" type="CSGCombiner3D" parent="Level"]
+transform = Transform3D(12.6704, 0, 0, 0, 1, 0, 0, 0, 10.6174, 0, -0.243652, 0)
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="Level/Test area"]
+size = Vector3(1, 0.512695, 1)
+
+[node name="Ground5" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.259522, 0.526571)
+size = Vector3(1, 1.03174, 0.0457764)
+
+[node name="Ground2" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.507577, 0.362305, 0)
+size = Vector3(0.0118408, 1.2373, 1)
+
+[node name="Ground3" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.331238, -0.529667)
+size = Vector3(1, 1.17517, 0.0517578)
+
+[node name="Ground4" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.518805, 0.255615, 0)
+size = Vector3(0.0341797, 1.02393, 1)
+
+[node name="Pillar" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(0.0789238, 0, 0, 0, 1, 0, 0, 0, 0.0941853, -0.364394, 1.54172, -0.357608)
+size = Vector3(1, 2.50732, 1)
+
+[node name="pit" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(0.0789238, 0, 0, 0, 1, 0, 0, 0, 0.0941853, 0.12227, 1.37663, 0.137673)
+operation = 2
+size = Vector3(1.79004, 2.66345, 1.62903)
+
+[node name="Wall" type="CSGBox3D" parent="Level/Test area"]
+transform = Transform3D(0.0789238, 0, 0, 0, 1, 0, 0, 0, 0.0941853, -0.161184, 1.54841, -0.411736)
+size = Vector3(1, 2.50732, 0.147461)
+
+[node name="Climbable" type="CSGBox3D" parent="Level/Test area/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0704689)
+size = Vector3(1, 2.50732, 0.147461)
+material = SubResource("StandardMaterial3D_et37t")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Level"]
+environment = SubResource("Environment_t8wam")
+
+[node name="Physical Objects" type="Node3D" parent="."]
+
+[node name="Ball" parent="Physical Objects" instance=ExtResource("2_lw4io")]
+transform = Transform3D(0.442962, 0, 0, 0, 0.442962, 0, 0, 0, 0.442962, 1.16357, 0.430403, 1.63547)
+mass = 0.2
+script = null
+
+[node name="Ball2" parent="Physical Objects" instance=ExtResource("2_lw4io")]
+transform = Transform3D(0.442962, 0, 0, 0, 0.442962, 0, 0, 0, 0.442962, 1.97141, 0.430403, 1.62153)
+mass = 0.2
+script = null
+
+[node name="Ball3" parent="Physical Objects" instance=ExtResource("2_lw4io")]
+mass = 0.2
+script = null
+
+[node name="Ball4" parent="Physical Objects" instance=ExtResource("2_lw4io")]
+transform = Transform3D(0.442962, 0, 0, 0, 0.442962, 0, 0, 0, 0.442962, 2.07277, 0.430403, 0.919066)
+mass = 0.2
+script = null
+
+[node name="CatDoor" parent="." instance=ExtResource("3_843db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)

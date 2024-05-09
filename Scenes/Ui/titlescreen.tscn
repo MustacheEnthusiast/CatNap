@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmftxmnujtci3"]
+
+[ext_resource type="Texture2D" uid="uid://h3lvn7vqgjva" path="res://icon.svg" id="1_ac5wh"]
+[ext_resource type="Script" path="res://Scripts/Menu.gd" id="2_m7ttp"]
+
+[node name="Titlescreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_m7ttp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
+position = Vector2(573, 141)
+scale = Vector2(4.14725, 1.57069)
+texture = ExtResource("1_ac5wh")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AnimatedSprite2D"]
+offset_left = -42.1967
+offset_top = -48.3863
+offset_right = 49.8033
+offset_bottom = 52.6137
+text = "Placeholder
+
+
+Title Screen"
+
+[node name="MenuButtons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="StartBtn" type="Button" parent="MarginContainer/MenuButtons" groups=["MenuButtons"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"
+
+[node name="OptionsBtn" type="Button" parent="MarginContainer/MenuButtons" groups=["MenuButtons"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Options"
+
+[node name="CreditsBtn" type="Button" parent="MarginContainer/MenuButtons" groups=["MenuButtons"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Credits"
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/MenuButtons" groups=["MenuButtons"]]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Exit"
+
+[node name="SubViewport" type="SubViewport" parent="."]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bf7x2v0n1b3mb"]
+
+[ext_resource type="Script" path="res://Scripts/Interactable.gd" id="1_pt6vq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cuxa5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1wdn"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jkxef"]
+material = SubResource("StandardMaterial3D_g1wdn")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uobx2"]
+radius = 0.201514
+
+[node name="Ball" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15771, 0.430403, 0.835633)
+physics_material_override = SubResource("PhysicsMaterial_cuxa5")
+script = ExtResource("1_pt6vq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_jkxef")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_uobx2")

@@ -1,0 +1,178 @@
+[gd_scene load_steps=26 format=3 uid="uid://cuog5yh70ve22"]
+
+[ext_resource type="Script" path="res://Scripts/door.gd" id="1_me4sr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4efgh"]
+size = Vector3(1, 3, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4bct0"]
+size = Vector3(0.035, 0.195, 0.33)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gjhks"]
+animation = &"Open"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qma8w"]
+animation = &"Close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_16ly3"]
+animation = &"open2"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_ftgbm"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_gjhks")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_qma8w")
+blend_point_1/pos = 0.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_16ly3")
+blend_point_2/pos = -1.0
+value_label = "0"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_25kbl"]
+animation = &"DoorClose"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vn1br"]
+animation = &"DoorOpen"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykdat"]
+animation = &"Close"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ql4ey"]
+animation = &"Open"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gfc2p"]
+animation = &"open2"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kpgvd"]
+advance_mode = 2
+advance_condition = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jvwyw"]
+advance_mode = 2
+advance_condition = &"closed"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u7v8d"]
+advance_mode = 2
+advance_condition = &"closed"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4avhh"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bmbd7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r310n"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bs6dy"]
+states/Close/node = SubResource("AnimationNodeAnimation_ykdat")
+states/Close/position = Vector2(474, 100)
+states/Open/node = SubResource("AnimationNodeAnimation_ql4ey")
+states/Open/position = Vector2(474, 187)
+states/Start/position = Vector2(185, 100)
+states/open2/node = SubResource("AnimationNodeAnimation_gfc2p")
+states/open2/position = Vector2(474, 13)
+transitions = ["Start", "Close", SubResource("AnimationNodeStateMachineTransition_kpgvd"), "Start", "open2", SubResource("AnimationNodeStateMachineTransition_jvwyw"), "Start", "Open", SubResource("AnimationNodeStateMachineTransition_u7v8d"), "open2", "End", SubResource("AnimationNodeStateMachineTransition_4avhh"), "Close", "End", SubResource("AnimationNodeStateMachineTransition_bmbd7"), "Open", "End", SubResource("AnimationNodeStateMachineTransition_r310n")]
+graph_offset = Vector2(-18, -56)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_slhjb"]
+graph_offset = Vector2(-587.162, -164.398)
+nodes/BlendSpace1D/node = SubResource("AnimationNodeBlendSpace1D_ftgbm")
+nodes/BlendSpace1D/position = Vector2(-80, 240)
+nodes/Close/node = SubResource("AnimationNodeAnimation_25kbl")
+nodes/Close/position = Vector2(0, -140)
+nodes/Open/node = SubResource("AnimationNodeAnimation_vn1br")
+nodes/Open/position = Vector2(0, -20)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_bs6dy")
+nodes/StateMachine/position = Vector2(-240, 140)
+node_connections = [&"output", 0, &"StateMachine"]
+
+[sub_resource type="Animation" id="Animation_dwqid"]
+resource_name = "Close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h71pc"]
+resource_name = "Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wxsca"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5ijvf"]
+resource_name = "open2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5708, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m7faa"]
+_data = {
+"Close": SubResource("Animation_dwqid"),
+"Open": SubResource("Animation_h71pc"),
+"RESET": SubResource("Animation_wxsca"),
+"open2": SubResource("Animation_5ijvf")
+}
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_me4sr")
+
+[node name="DoorBody" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.511564, 1.51387, -0.00712037)
+mesh = SubResource("BoxMesh_4efgh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DoorBody"]
+transform = Transform3D(0.996909, 0, 0, 0, 0.996909, 0, 0, 0, 0.996909, 0.38288, 0, -2.98023e-08)
+mesh = SubResource("BoxMesh_4bct0")
+
+[node name="DoorAnimTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_slhjb")
+anim_player = NodePath("AnimationPlayer")
+parameters/BlendSpace1D/blend_position = 0.737237
+parameters/StateMachine/conditions/closed = false
+parameters/StateMachine/conditions/open = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DoorAnimTree"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_m7faa")
+}
